@@ -40,7 +40,6 @@ var chains = chained_map_reduce(db, [
     {
         name: 'top_sales',
         map: function(key, value, emit) {
-            var thing = bytewise.encode(value) ;
             emit(numpad(value, 3), key);
         }
     }
