@@ -1,5 +1,5 @@
 var levelCouchSync = require('level-couch-sync'),
-    MapReduce = require('map-reduce');
+    mappedIndex = require('level-mapped-index');
 
 module.exports = function(db, chains, options){
   // validate options
@@ -12,40 +12,53 @@ module.exports = function(db, chains, options){
   var count = 0,
       mapreduces = [];
   chains.forEach(function(chain){
-    chain.sublevel_name = 'chain-' + count;
+    chain.sublevel_name = chain.name || 'chain-' + count;
     if (chain.url) chainCouch(db, count++, chain, mapreduces);
-    else chainMR(db, count++, chain, mapreduces);
+    else chainMR(db, count++, chain, chains);
   })
+
+  return chains;
 }
 
-function chainCouch(db, count, chain, mapreduces) {
+function chainCouch(db, count, chain, chains) {
   if (count > 0) throw new Error('couch chain must be exactly first in the chain');
-  var transform = undefined,
-      level_name = chain.sublevel_name || chain.name;
+  var transform = undefined;
   if (chain.transform) transform = chain.transform;
-  levelCouchSync(chain.url, db, level_name, transform);
-  mapreduces.push({db: level_name});
-
+  chain.db = db.sublevel(chain.sublevel_name);
+  levelCouchSync(chain.url, db, chain.sublevel_name, transform);
 }
 
 
 
-function chainMR(db, count, chain, mapreduces) {
+function chainMR(db, count, chain, chains) {
 
-  var level_name =  chain.name || chain.sublevel_name,
-      i = count - 1,
-      prev,
-      cur_db;
-  if (i >= 0 && mapreduces[i]) {
-      prev = mapreduces[i];
-      cur_db = db.sublevel(level_name);
-  } else cur_db = db;
+  var cur_db = db,
+      index_db,
+      prev;
 
-  var sub_mr = MapReduce(cur_db, level_name + '-mr', chain.map, chain.reduce);
-  mapreduces.push({db: level_name, mr: sub_mr});
+  if (count > 0) {
+      prev = chains[count - 1];
+      cur_db = db.sublevel(chain.sublevel_name);
+      index_db = cur_db.sublevel('index');
+      chain.db = mappedIndex(cur_db)
+      chain.db.registerIndex(chain.sublevel_name, chain.map, chain.reduce, chain.initial)
 
-  if (prev && prev.mr) {
-    prev.mr.on('reduce', function(group, val){
+      //chain.db = index_db;
+      //index_db = mappedIndex(cur_db);
+  } else {
+    cur_db = db.sublevel(chain.sublevel_name);
+    index_db = mappedIndex(db);
+    index_db.registerIndex(cur_db, chain.sublevel_name, chain.map, chain.reduce, chain.initial)
+    chain.db = index_db;
+  }
+
+
+  chain.mapreduce = true;
+
+  //console.log(prev);
+
+  if (prev) {
+    prev.db._mappedIndexes[prev.sublevel_name].on('reduce', function(group, val){
       if (group.length && group.length > 0) {
         cur_db.put(group, val);
       }

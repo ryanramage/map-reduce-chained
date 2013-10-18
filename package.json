@@ -15,6 +15,7 @@
   "devDependencies": {
     "level": "~0.17.0-1",
     "rimraf": "~2.2.2",
-    "level-sublevel": "~5.1.1"
+    "level-sublevel": "~5.1.1",
+    "level-mapped-index": "~0.3.2"
   }
 }
