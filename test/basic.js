@@ -67,7 +67,7 @@ var b = [
 db.batch(b, wait);
 
 function wait(){
-    setTimeout(test_chains, 100);
+    setTimeout(test_chains, 1000);
 }
 
 function test_chains(){
