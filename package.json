@@ -12,6 +12,7 @@
   },
   "author": "Ryan Ramage",
   "license": "BSD-2-Clause",
+  "keywords": [ "leveldb", "levelup", "index", "indexing", "chained", "map", "reduce" ],
   "dependencies": {
     "level-mapped-index": "git+https://github.com/ryanramage/node-level-mapped-index.git#reduce-support",
     "level-couch-sync": "~1.0.2"
