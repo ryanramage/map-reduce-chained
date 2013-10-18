@@ -81,3 +81,28 @@ function test_chains(){
 }
 
 ```
+
+ouput:
+
+```
+ryan sales
+[ { key: '10',value: '{"type":"sale","user":"ryan","price":"10"}' },
+  { key: '3', value: '{"type":"sale","user":"ryan","price":"3"}' },
+  { key: '3', value: '{"type":"sale","user":"ryan","price":"3"}' },
+  { key: '10',value: '{"type":"sale","user":"ryan","price":"10"}' },
+  { key: '3', value: '{"type":"sale","user":"ryan","price":"3"}' } ]
+
+top sales
+[ { key: 'bobi', value: '36' },
+  { key: 'jenn', value: '33' },
+  { key: 'ryan', value: '29' },
+  { key: 'lau',  value: '20' },
+  { key: 'jose', value: '15' },
+  { key: 'doug', value: '10' },
+  { key: 'norm', value: '5' },
+  { key: 'gary', value: '4' },
+  { key: 'bill', value: '4' },
+  { key: 'cody', value: '3' } ]
+```
+
+
