@@ -26,6 +26,7 @@ function chainCouch(db, count, chain, chains) {
   if (chain.transform) transform = chain.transform;
   chain.db = db.sublevel(chain.sublevel_name);
   levelCouchSync(chain.url, db, chain.sublevel_name, transform);
+  chainMR(db, count, chain, chains);
 }
 
 
@@ -57,7 +58,7 @@ function chainMR(db, count, chain, chains) {
 
   //console.log(prev);
 
-  if (prev) {
+  if (prev && prev.mapreduce) {
     prev.db._mappedIndexes[prev.sublevel_name].on('reduce', function(group, val){
       if (group.length && group.length > 0) {
         cur_db.put(group, val);
