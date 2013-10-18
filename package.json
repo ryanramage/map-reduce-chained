@@ -2,6 +2,10 @@
   "name": "map-reduce-chained",
   "version": "0.0.1",
   "description": "chained map reduce on leveldb",
+  "repository" :{
+    "type" : "git",
+    "url" : "https://github.com/ryanramage/map-reduce-chained.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "set -e; for t in test/*.js; do node $t; done"
