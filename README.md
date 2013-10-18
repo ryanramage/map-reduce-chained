@@ -17,6 +17,7 @@ npm install map-reduce-chained
 Goal: get the top 10 sales users.
 
 ```
+var chained_map_reduce = require('map-reduce-chained');
 var chains = chained_map_reduce(db, [
     {
         name: 'sales',
@@ -56,32 +57,15 @@ var b = [
     {type: 'put', key: '16', value: JSON.stringify({  type: 'sale', user: 'jenn', price: '33'  }) }
 ];
 
-db.batch(b, wait);
-
-function wait(){
-    setTimeout(test_chains, 100);
-}
-
-function test_chains(){
+db.batch(b, function(){
     db.getBy('sales', ['ryan'], function (err, data) {
-        assert.ifError(err);
-        assert.equal(data.length, 5);
-        console.log('ryan sales', err, data);
+        console.log('ryan sales', data);
     })
 
     chains[1].db.getBy('top_sales', [], {reverse: true, limit: 10}, function(err, data) {
-        assert.equal(data.length, 10);
-        var last;
-        data.forEach(function(row){
-            if (last) {
-                assert.ok(Number(row.value) <= Number(last.value));
-            }
-            last = row;
-        })
-        console.log('top sales', err, data);
+        console.log('top sales', data);
     });
-
-}
+});
 
 ```
 
@@ -108,4 +92,5 @@ top sales
   { key: 'cody', value: '3' } ]
 ```
 
+See [test/basic.js](https://github.com/ryanramage/map-reduce-chained/blob/master/test/basic.js#L28) for a running example of the above.
 
