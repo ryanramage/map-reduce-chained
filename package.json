@@ -1,6 +1,6 @@
 {
   "name": "map-reduce-chained",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "chained map reduce on leveldb",
   "main": "index.js",
   "scripts": {
@@ -9,13 +9,13 @@
   "author": "Ryan Ramage",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "map-reduce": "~4.0.5",
+    "level-mapped-index": "git+https://github.com/devpaul/cucumber-js.git#reduce-support",
     "level-couch-sync": "~1.0.2"
   },
   "devDependencies": {
     "level": "~0.17.0-1",
     "rimraf": "~2.2.2",
     "level-sublevel": "~5.1.1",
-    "level-mapped-index": "~0.3.2"
+    "numpad": "0.0.1"
   }
 }

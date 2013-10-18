@@ -1,6 +1,5 @@
 var chained_map_reduce = require('..'),
     rimraf = require('rimraf'),
-    bytewise = require('bytewise'),
     numpad = require('numpad'),s
     t = rimraf.sync('/tmp/map-reduce-example'),
     db = require('level-sublevel')(require('level')('/tmp/map-reduce-example')),
