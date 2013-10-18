@@ -3,6 +3,10 @@ map-reduce-chained
 
 Make chains of map reduced data. Why? to something like this: http://examples.cloudant.com/sales/_design/sales/index.html#basic
 
+
+[![Build Status](https://travis-ci.org/ryanramage/map-reduce-chained.png)](https://travis-ci.org/ryanramage/map-reduce-chained)
+
+
 Usage:
 -------
 
