@@ -2,9 +2,9 @@
   "name": "map-reduce-chained",
   "version": "0.0.1",
   "description": "chained map reduce on leveldb",
-  "repository" :{
-    "type" : "git",
-    "url" : "https://github.com/ryanramage/map-reduce-chained.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryanramage/map-reduce-chained.git"
   },
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,15 @@
   },
   "author": "Ryan Ramage",
   "license": "BSD-2-Clause",
-  "keywords": [ "leveldb", "levelup", "index", "indexing", "chained", "map", "reduce" ],
+  "keywords": [
+    "leveldb",
+    "levelup",
+    "index",
+    "indexing",
+    "chained",
+    "map",
+    "reduce"
+  ],
   "dependencies": {
     "level-mapped-index": "git+https://github.com/ryanramage/node-level-mapped-index.git#reduce-support",
     "level-couch-sync": "~1.0.2"
@@ -21,6 +29,9 @@
     "level": "~0.17.0-1",
     "rimraf": "~2.2.2",
     "level-sublevel": "~5.1.1",
-    "numpad": "0.0.1"
+    "numpad": "0.0.1",
+    "async": "~0.2.9",
+    "couchr": "0.0.14",
+    "lodash.debounce": "~2.3.0"
   }
 }
