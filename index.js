@@ -43,9 +43,6 @@ function chainMR(db, count, chain, chains) {
       index_db = cur_db.sublevel('index');
       chain.db = mappedIndex(cur_db)
       chain.db.registerIndex(chain.sublevel_name, chain.map, chain.reduce, chain.initial)
-
-      //chain.db = index_db;
-      //index_db = mappedIndex(cur_db);
   } else {
     cur_db = db.sublevel(chain.sublevel_name);
     index_db = mappedIndex(db);
@@ -55,8 +52,6 @@ function chainMR(db, count, chain, chains) {
 
 
   chain.mapreduce = true;
-
-  //console.log(prev);
 
   if (prev && prev.mapreduce) {
     prev.db._mappedIndexes[prev.sublevel_name].on('reduce', function(group, val){
